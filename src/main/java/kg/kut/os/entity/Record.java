@@ -16,7 +16,7 @@ public class Record {
     public Record(String title) {
         this.id = counter++;
         this.title = title;
-        this.recordStatus = RecordStatus.Active;
+        this.recordStatus = RecordStatus.ACTIVE;
     }
     public int getId() {
         return id;

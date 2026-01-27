@@ -2,6 +2,7 @@ package kg.kut.os.controller;
 
 import kg.kut.os.entity.Record;
 import kg.kut.os.entity.RecordStatus;
+import kg.kut.os.entity.dto.RecordsContainerDto;
 import kg.kut.os.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,13 +27,11 @@ public class CommonController {
     }
 
     @RequestMapping("/home")
-    public String getMainPage(Model model) {
-        List<Record> records = recordService.getAllRecords();
-        int numberOfActiveRecords = (int) records.stream().filter(record -> record.getRecordStatus() == RecordStatus.Active).count();
-        int numberOfDoneRecords = (int) records.stream().filter(record -> record.getRecordStatus() == RecordStatus.Done).count();
-        model.addAttribute("records", records);
-        model.addAttribute("numberOfActiveRecords", numberOfActiveRecords);
-        model.addAttribute("numberOfDoneRecords", numberOfDoneRecords);
+    public String getMainPage(Model model, @RequestParam(name = "filter", required = false) String filterMode) {
+        RecordsContainerDto container = recordService.getAllRecords(filterMode);
+        model.addAttribute("records", container.getRecords());
+        model.addAttribute("numberOfActiveRecords", container.getNumberOfActiveRecords());
+        model.addAttribute("numberOfDoneRecords", container.getNumberOfDoneRecords());
         return "main-page";
     }
 
@@ -46,7 +45,7 @@ public class CommonController {
     @RequestMapping(value ="/make-record-done", method = RequestMethod.POST)
     public String makeRecordDone(@RequestParam int id) {
 
-        recordService.updateRecordStatus(id, RecordStatus.Done);
+        recordService.updateRecordStatus(id, RecordStatus.DONE);
         return "redirect:/home";
     }
 

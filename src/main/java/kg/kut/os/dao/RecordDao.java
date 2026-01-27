@@ -12,9 +12,9 @@ import java.util.List;
 public class RecordDao {
     private final List<Record> records = new ArrayList<>(
             Arrays.asList(
-                    new Record("Read at least farz namaz", RecordStatus.Active),
-                    new Record("Read quran", RecordStatus.Done),
-                    new Record("Make Balkyayl happy", RecordStatus.Active)
+                    new Record("Read at least farz namaz", RecordStatus.ACTIVE),
+                    new Record("Read quran", RecordStatus.DONE),
+                    new Record("Make Balkyayl happy", RecordStatus.ACTIVE)
             )
     );
 

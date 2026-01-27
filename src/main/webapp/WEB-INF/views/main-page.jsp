@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -21,15 +23,15 @@
         <div class="filter-container">
             <form class="filter-form">
                 <div class="filter-form__input">
-                    <input type="radio" id="filter-form__status_all" name="filter" value="all" checked>
+                    <input type="radio" id="filter-form__status_all" name="filter" value="all" ${empty param.filter or (fn:toLowerCase(param.filter) != 'done' and fn:toLowerCase(param.filter) != 'active') ? 'checked' : ''}>
                     <label for="filter-form__status_all">All</label>
                 </div>
                 <div class="filter-form__input">
-                    <input type="radio" id="filter-form__status_active" name="filter" value="active">
+                    <input type="radio" id="filter-form__status_active" name="filter" value="active" ${fn:toLowerCase(param.filter) == 'active' ? 'checked' : ''}>
                     <label for="filter-form__status_active">Active</label>
                 </div>
                 <div class="filter-form__input">
-                    <input type="radio" id="filter-form__status_done" name="filter" value="done">
+                    <input type="radio" id="filter-form__status_done" name="filter" value="done" ${fn:toLowerCase(param.filter) == 'done' ? 'checked' : ''}>
                     <label for="filter-form__status_done">Done</label>
                 </div>
                 <button type="submit">Apply</button>
@@ -42,12 +44,12 @@
                     <c:forEach items="${records}" var="record">
                         <div class="record">
                             <div class="record__title">
-                        <span class="${record.status == 'Done' ? 'record__title_strikethrough' : ''}">
+                        <span class="${record.status == 'DONE' ? 'record__title_strikethrough' : ''}">
                                 ${record.title}
                         </span>
                             </div>
                             <div class="record__controls">
-                                <c:if test="${record.status == 'Active'}">
+                                <c:if test="${record.status == 'ACTIVE'}">
                                     <form action="${pageContext.request.contextPath}/make-record-done" method="post" class="record__controls-form">
                                         <input type="hidden" name="id" value="${record.id}">
                                         <button type="submit" class="button_type_approve">

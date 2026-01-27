@@ -3,9 +3,12 @@ package kg.kut.os.service;
 import kg.kut.os.dao.RecordDao;
 import kg.kut.os.entity.Record;
 import kg.kut.os.entity.RecordStatus;
+import kg.kut.os.entity.dto.RecordsContainerDto;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RecordService {
@@ -15,8 +18,25 @@ public class RecordService {
         this.recordDao = recordDao;
     }
 
-    public List<Record> getAllRecords() {
-        return recordDao.getAllRecords();
+    public RecordsContainerDto getAllRecords(String filterMode) {
+        List<Record> records = recordDao.getAllRecords();
+        int numberOfActiveRecords = (int) records.stream().filter(record -> record.getRecordStatus() == RecordStatus.ACTIVE).count();
+        int numberOfDoneRecords = (int) records.stream().filter(record -> record.getRecordStatus() == RecordStatus.DONE).count();
+        if (filterMode == null || filterMode.isEmpty()) {
+            return new RecordsContainerDto(records,numberOfActiveRecords, numberOfDoneRecords);
+        }
+
+        String filterModeInUpperCase = filterMode.toUpperCase();
+        List<String> allowedFilterModes = Arrays.stream(RecordStatus.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+        if (allowedFilterModes.contains(filterModeInUpperCase)) {
+            List<Record> filteredRecords = records.stream()
+                    .filter(record -> record.getRecordStatus() == RecordStatus.valueOf(filterModeInUpperCase))
+                    .collect(Collectors.toList());
+            return new RecordsContainerDto(filteredRecords, numberOfActiveRecords, numberOfDoneRecords);
+        }
+        return new RecordsContainerDto(records,numberOfActiveRecords, numberOfDoneRecords);
     }
     public void saveRecord(String title) {
         if (title != null && !title.isEmpty()) {
