@@ -51,6 +51,7 @@
                             <div class="record__controls">
                                 <c:if test="${record.status == 'ACTIVE'}">
                                     <form action="${pageContext.request.contextPath}/make-record-done" method="post" class="record__controls-form">
+                                        <input type="hidden" name="filter" value="${fn:toLowerCase(param.filter)}">
                                         <input type="hidden" name="id" value="${record.id}">
                                         <button type="submit" class="button_type_approve">
                                             <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -67,6 +68,7 @@
                                     </form>
                                 </c:if>
                                 <form action="${pageContext.request.contextPath}/delete-record" method="post" class="record__controls-form">
+                                    <input type="hidden" name="filter" value="${fn:toLowerCase(param.filter)}">
                                     <input type="hidden" name="id" value="${record.id}">
                                     <button type="submit" class="button_type_close">
                                         <svg width="24" height="24" viewBox="0 0 24 24">
@@ -80,9 +82,24 @@
                     </c:forEach>
                 </c:when>
                 <c:otherwise>
-                    <div class="hint">
-                        <span>There are no tasks!</span>
-                    </div>
+                    <c:choose>
+                        <c:when test="${fn.toLowerCase(param.filter) == 'active'}">
+                            <div class="hint">
+                                <span>There are no active tasks!</span>
+                            </div>
+                        </c:when>
+                        <c:when test="${fn.toLowerCase(param.filter) == 'done'}">
+                            <div class="hint">
+                                <span>There are no done tasks!</span>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="hint">
+                                <span>There are tasks, try add some tasks.</span>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+
                 </c:otherwise>
             </c:choose>
 
