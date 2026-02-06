@@ -7,22 +7,18 @@ import kg.kut.os.entity.Record;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.Collections;
 import java.util.List;
 
 @Repository
 public class RecordDao {
-    private final EntityManagerFactory entityManagerFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    @Autowired
-    public RecordDao(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-    }
 
     public List<Record> getAllRecords() {
-
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
 
@@ -41,7 +37,6 @@ public class RecordDao {
     }
 
     public void saveRecord(Record record) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
 
@@ -51,13 +46,10 @@ public class RecordDao {
         } catch (Exception e) {
             e.printStackTrace();
             entityManager.getTransaction().rollback();
-        } finally {
-            entityManager.close();
         }
     }
 
     public void updateRecordStatus(int id, RecordStatus newStatus) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
 
@@ -70,13 +62,10 @@ public class RecordDao {
         } catch (Exception e) {
             e.printStackTrace();
             entityManager.getTransaction().rollback();
-        } finally {
-            entityManager.close();
         }
     }
 
     public void deleteRecord(int id) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
 
@@ -88,8 +77,6 @@ public class RecordDao {
         } catch (Exception e) {
             e.printStackTrace();
             entityManager.getTransaction().rollback();
-        } finally {
-            entityManager.close();
         }
     }
 
