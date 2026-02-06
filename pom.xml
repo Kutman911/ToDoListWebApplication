@@ -10,12 +10,23 @@
         <spring.version>5.3.29</spring.version>
         <servlet.version>4.0.1</servlet.version>
         <jstl.version>1.2</jstl.version>
+        <spring.version>5.3.29</spring.version>
+        <postgresql.version>42.6.0</postgresql.version>
+        <hibernate.version>5.6.15.Final</hibernate.version>
+        <javax.version>2.2</javax.version>
     </properties>
   <dependencies>
       <dependency>
           <groupId>javax.servlet</groupId>
           <artifactId>jstl</artifactId>
           <version>${jstl.version}</version>
+      </dependency>
+
+      <!-- Spring Context -->
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-orm</artifactId>
+          <version>${spring.version}</version>
       </dependency>
       <dependency>
           <groupId>org.springframework</groupId>
@@ -28,6 +39,27 @@
           <artifactId>javax.servlet-api</artifactId>
           <version>${servlet.version}</version>
           <scope>provided</scope>
+      </dependency>
+
+      <!-- Hibernate -->
+      <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-core</artifactId>
+          <version>${hibernate.version}</version>
+      </dependency>
+
+      <!-- JPA -->
+      <dependency>
+          <groupId>javax.persistence</groupId>
+          <artifactId>javax.persistence-api</artifactId>
+          <version>${javax.version}</version>
+      </dependency>
+
+      <!-- PostgreSQL -->
+      <dependency>
+          <groupId>org.postgresql</groupId>
+          <artifactId>postgresql</artifactId>
+          <version>${postgresql.version}</version>
       </dependency>
 
   </dependencies>

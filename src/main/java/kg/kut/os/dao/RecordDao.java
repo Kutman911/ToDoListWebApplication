@@ -1,44 +1,96 @@
 package kg.kut.os.dao;
 
 import kg.kut.os.entity.RecordStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import kg.kut.os.entity.Record;
-import java.util.ArrayList;
-import java.util.Arrays;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
 public class RecordDao {
-    private final List<Record> records = new ArrayList<>(
-            Arrays.asList(
-                    new Record("Read at least farz namaz", RecordStatus.ACTIVE),
-                    new Record("Read quran", RecordStatus.DONE),
-                    new Record("Make Balkyayl happy", RecordStatus.ACTIVE)
-            )
-    );
+    private final EntityManagerFactory entityManagerFactory;
 
-    public ArrayList<Record> getAllRecords() {
-        return new ArrayList<>(records);
+    @Autowired
+    public RecordDao(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+    }
+
+    public List<Record> getAllRecords() {
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+
+            Query query = entityManager.createQuery("SELECT r FROM Record r");
+            List<Record> records = query.getResultList();
+
+            entityManager.getTransaction().commit();
+            return records;
+        } catch (Exception e) {
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+            return Collections.emptyList();
+        } finally {
+            entityManager.close();
+        }
     }
 
     public void saveRecord(Record record) {
-        records.add(record);
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+
+            entityManager.persist(record);
+
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        } finally {
+            entityManager.close();
+        }
     }
 
     public void updateRecordStatus(int id, RecordStatus newStatus) {
-        for (Record  item : records) {
-            if (item.getId() == id) {
-                item.setStatus(newStatus);
-                break;
-            }
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+
+            Query query = entityManager.createQuery("UPDATE Record SET status = :status WHERE id = :id");
+            query.setParameter("id", id);
+            query.setParameter("status", newStatus);
+            query.executeUpdate();
+
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        } finally {
+            entityManager.close();
         }
     }
+
     public void deleteRecord(int id) {
-        records.removeIf(record -> record.getId() == id);
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+
+            Query query = entityManager.createQuery("DELETE  FROM Record WHERE id = :id");
+            query.setParameter("id", id);
+            query.executeUpdate();
+
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        } finally {
+            entityManager.close();
+        }
     }
-
-
-
 
 }

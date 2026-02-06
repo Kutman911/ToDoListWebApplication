@@ -20,8 +20,8 @@ public class RecordService {
 
     public RecordsContainerDto getAllRecords(String filterMode) {
         List<Record> records = recordDao.getAllRecords();
-        int numberOfActiveRecords = (int) records.stream().filter(record -> record.getRecordStatus() == RecordStatus.ACTIVE).count();
-        int numberOfDoneRecords = (int) records.stream().filter(record -> record.getRecordStatus() == RecordStatus.DONE).count();
+        int numberOfActiveRecords = (int) records.stream().filter(record -> record.getStatus() == RecordStatus.ACTIVE).count();
+        int numberOfDoneRecords = (int) records.stream().filter(record -> record.getStatus() == RecordStatus.DONE).count();
         if (filterMode == null || filterMode.isEmpty()) {
             return new RecordsContainerDto(records,numberOfActiveRecords, numberOfDoneRecords);
         }
@@ -32,7 +32,7 @@ public class RecordService {
                 .collect(Collectors.toList());
         if (allowedFilterModes.contains(filterModeInUpperCase)) {
             List<Record> filteredRecords = records.stream()
-                    .filter(record -> record.getRecordStatus() == RecordStatus.valueOf(filterModeInUpperCase))
+                    .filter(record -> record.getStatus() == RecordStatus.valueOf(filterModeInUpperCase))
                     .collect(Collectors.toList());
             return new RecordsContainerDto(filteredRecords, numberOfActiveRecords, numberOfDoneRecords);
         }

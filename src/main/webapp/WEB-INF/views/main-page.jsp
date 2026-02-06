@@ -95,7 +95,7 @@
                         </c:when>
                         <c:otherwise>
                             <div class="hint">
-                                <span>There are tasks, try add some tasks.</span>
+                                <span>There are no tasks, try to add some tasks.</span>
                             </div>
                         </c:otherwise>
                     </c:choose>

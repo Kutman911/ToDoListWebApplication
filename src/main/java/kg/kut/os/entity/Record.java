@@ -1,37 +1,50 @@
 package kg.kut.os.entity;
 
+import javax.persistence.*;
 
+@Entity
+@Table(name = "records")
 public class Record {
-    private static int counter = 0;
-    private final int id;
-    private final String title;
-    private RecordStatus recordStatus;
 
-    public Record(String title, RecordStatus recordStatus) {
-        this.id = counter++;
-        this.title = title;
-        this.recordStatus = recordStatus;
-    }
+    @Id
+    @Column(name = "name")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "title", nullable = false, length = 150)
+    private String title;
+
+    @Column(name = "status", nullable = false)
+    private RecordStatus status;
+
+    public Record() {}
 
     public Record(String title) {
-        this.id = counter++;
         this.title = title;
-        this.recordStatus = RecordStatus.ACTIVE;
+        this.status = RecordStatus.ACTIVE;
     }
+
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
         return title;
     }
-    public RecordStatus getRecordStatus() {
-        return recordStatus;
+
+    public void setTitle(String title) {
+        this.title = title;
     }
+
     public RecordStatus getStatus() {
-        return recordStatus;
+        return status;
     }
+
     public void setStatus(RecordStatus recordStatus) {
-        this.recordStatus = recordStatus;
+        this.status = recordStatus;
     }
 }
