@@ -16,20 +16,17 @@ public class RecordDao {
     private EntityManager entityManager;
 
 
-    @Transactional
     public List<Record> getAllRecords() {
-        Query query = entityManager.createQuery("SELECT r FROM Record r");
+        Query query = entityManager.createQuery("SELECT r FROM Record r ORDER BY r.id ASC");
         List<Record> records = query.getResultList();
 
         return records;
     }
 
-    @Transactional
     public void saveRecord(Record record) {
         entityManager.persist(record);
     }
 
-    @Transactional
     public void updateRecordStatus(int id, RecordStatus newStatus) {
         Query query = entityManager.createQuery("UPDATE Record SET status = :status WHERE id = :id");
         query.setParameter("id", id);
@@ -38,7 +35,6 @@ public class RecordDao {
 
     }
 
-    @Transactional
     public void deleteRecord(int id) {
         Query query = entityManager.createQuery("DELETE  FROM Record WHERE id = :id");
         query.setParameter("id", id);
