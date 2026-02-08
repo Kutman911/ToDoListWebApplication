@@ -1,13 +1,12 @@
 package kg.kut.os.dao;
 
+import kg.kut.os.entity.Record;
 import kg.kut.os.entity.RecordStatus;
 import org.springframework.stereotype.Repository;
-import kg.kut.os.entity.Record;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.transaction.Transactional;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import java.util.List;
 
 @Repository

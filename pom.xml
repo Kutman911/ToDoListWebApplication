@@ -1,77 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>kg.kut.os.to-do-list</groupId>
-  <artifactId>to-do-list-web-application</artifactId>
-  <packaging>war</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>ToDo List Web Application</name>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.0.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>kg.kut.os</groupId>
+    <artifactId>to-do-list-application</artifactId>
+    <version>0.0.1</version>
+    <name>ToDoListApplication</name>
+    <description>ToDoListApplication</description>
+    <url/>
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <tag/>
+        <url/>
+    </scm>
+
     <properties>
-        <spring.version>5.3.29</spring.version>
-        <servlet.version>4.0.1</servlet.version>
-        <jstl.version>1.2</jstl.version>
-        <spring.version>5.3.29</spring.version>
-        <postgresql.version>42.6.0</postgresql.version>
-        <hibernate.version>5.6.15.Final</hibernate.version>
-        <javax.version>2.2</javax.version>
-        <dbcp.version>2.9.0</dbcp.version>
+        <java.version>21</java.version>
     </properties>
-  <dependencies>
-      <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
-          <version>${jstl.version}</version>
-      </dependency>
 
-      <!-- Spring Context -->
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-orm</artifactId>
-          <version>${spring.version}</version>
-      </dependency>
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-webmvc</artifactId>
-          <version>${spring.version}</version>
-          <scope>compile</scope>
-      </dependency>
-      <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>javax.servlet-api</artifactId>
-          <version>${servlet.version}</version>
-          <scope>provided</scope>
-      </dependency>
+    <dependencies>
 
-      <!-- Hibernate -->
-      <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-core</artifactId>
-          <version>${hibernate.version}</version>
-      </dependency>
+        <!-- WEB -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc</artifactId>
+        </dependency>
 
-      <!-- JPA -->
-      <dependency>
-          <groupId>javax.persistence</groupId>
-          <artifactId>javax.persistence-api</artifactId>
-          <version>${javax.version}</version>
-      </dependency>
+        <!-- DB -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
 
-      <!-- PostgreSQL -->
-      <dependency>
-          <groupId>org.postgresql</groupId>
-          <artifactId>postgresql</artifactId>
-          <version>${postgresql.version}</version>
-      </dependency>
-
-      <dependency>
-          <groupId>org.apache.commons</groupId>
-          <artifactId>commons-dbcp2</artifactId>
-          <version>${dbcp.version}</version>
-          <scope>compile</scope>
-      </dependency>
-
-  </dependencies>
-  <build>
-    <finalName>ToDoListWebApplication</finalName>
-  </build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -1,6 +1,5 @@
 package kg.kut.os.controller;
 
-import kg.kut.os.entity.Record;
 import kg.kut.os.entity.RecordStatus;
 import kg.kut.os.entity.dto.RecordsContainerDto;
 import kg.kut.os.service.RecordService;
@@ -10,8 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Controller
 public class CommonController {
