@@ -1,9 +1,10 @@
 package kg.kut.os.service;
 
-import kg.kut.os.dao.RecordDao;
+import kg.kut.os.repository.RecordRepository;
 import kg.kut.os.entity.Record;
 import kg.kut.os.entity.RecordStatus;
 import kg.kut.os.entity.dto.RecordsContainerDto;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
@@ -15,13 +16,13 @@ import java.util.stream.Collectors;
 @Service
 public class RecordService {
 
-    private final RecordDao recordDao;
-    public RecordService(RecordDao recordDao) {
-        this.recordDao = recordDao;
+    private final RecordRepository recordRepository;
+    public RecordService(RecordRepository recordRepository) {
+        this.recordRepository = recordRepository;
     }
 
     public RecordsContainerDto getAllRecords(String filterMode) {
-        List<Record> records = recordDao.getAllRecords();
+        List<Record> records = recordRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         int numberOfActiveRecords = (int) records.stream().filter(record -> record.getStatus() == RecordStatus.ACTIVE).count();
         int numberOfDoneRecords = (int) records.stream().filter(record -> record.getStatus() == RecordStatus.DONE).count();
         if (filterMode == null || filterMode.isEmpty()) {
@@ -42,16 +43,16 @@ public class RecordService {
     }
     public void saveRecord(String title) {
         if (title != null && !title.isEmpty()) {
-            recordDao.saveRecord(new Record(title));
+            recordRepository.save(new Record(title));
         }
 
     }
 
     public void updateRecordStatus(int id, RecordStatus newStatus) {
-        recordDao.updateRecordStatus(id, newStatus);
+        recordRepository.update(id, newStatus);
     }
 
     public void deleteRecord(int id) {
-        recordDao.deleteRecord(id);
+        recordRepository.deleteById(id);
     }
 }
