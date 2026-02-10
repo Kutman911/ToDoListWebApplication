@@ -48,11 +48,11 @@ public class RecordService {
 
     }
 
-    public void updateRecordStatus(int id, RecordStatus newStatus) {
+    public void updateRecordStatus(Integer id, RecordStatus newStatus) {
         recordRepository.update(id, newStatus);
     }
 
-    public void deleteRecord(int id) {
+    public void deleteRecord(Integer id) {
         recordRepository.deleteById(id);
     }
 }

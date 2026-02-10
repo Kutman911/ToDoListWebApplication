@@ -35,17 +35,17 @@ public class PrivateAccountController {
     }
 
     @PostMapping(value ="/make-record-done")
-    public String makeRecordDone(@RequestParam int id,
+    public String makeRecordDone(@RequestParam Integer id,
                                  @RequestParam(name="filter", required = false) String filterMode) {
 
         recordService.updateRecordStatus(id, RecordStatus.DONE);
-        return "redirect:/account" + (filterMode != null ? "?filter+" + filterMode : "");
+        return "redirect:/account" + (filterMode != null ? "?filter=" + filterMode : "");
     }
 
     @PostMapping(value ="/delete-record")
-    public String deleteRecord(@RequestParam int id,
+    public String deleteRecord(@RequestParam Integer id,
                                @RequestParam(name="filter", required = false) String filterMode) {
         recordService.deleteRecord(id);
-        return "redirect:/account" + (filterMode != null ? "?filter+" + filterMode : "");
+        return "redirect:/account" + (filterMode != null ? "?filter=" + filterMode : "");
     }
 }
