@@ -18,11 +18,24 @@ public class Record {
     @Column(name = "status", nullable = false)
     private RecordStatus status;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Record() {}
 
-    public Record(String title) {
+    public Record(String title, User user) {
         this.title = title;
         this.status = RecordStatus.ACTIVE;
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Integer getId() {

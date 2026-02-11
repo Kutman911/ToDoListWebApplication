@@ -25,8 +25,7 @@ public class PrivateAccountController {
     @GetMapping
     public String getMainPage(Model model, @RequestParam(name = "filter", required = false) String filterMode) {
         RecordsContainerDto container = recordService.getAllRecords(filterMode);
-        User user = userService.getCurrentUser();
-        model.addAttribute("userName", user.getName());
+        model.addAttribute("userName", container.getUserName());
         model.addAttribute("records", container.getRecords());
         model.addAttribute("numberOfActiveRecords", container.getNumberOfActiveRecords());
         model.addAttribute("numberOfDoneRecords", container.getNumberOfDoneRecords());
