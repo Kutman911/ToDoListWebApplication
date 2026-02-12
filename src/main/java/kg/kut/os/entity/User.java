@@ -85,4 +85,16 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean isSimpleUser() {
+        return this.role == UserRole.USER;
+    }
+
+    public boolean isAdmin() {
+        return this.role == UserRole.ADMIN;
+    }
+
+    public boolean isSuperAdmin() {
+        return this.role == UserRole.SUPER_ADMIN;
+    }
 }
