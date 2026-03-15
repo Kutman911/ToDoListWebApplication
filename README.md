@@ -47,9 +47,9 @@
 
 Перед запуском убедитесь, что у вас создана база данных в PostgreSQL. Настройки по умолчанию находятся в `src/main/resources/application.properties`:
 
-- **URL:** `jdbc:postgresql://localhost:5433/kutos`
-- **Username:** `kutos`
-- **Password:** `sk88690733`
+- **URL:** 
+- **Username:** 
+- **Password:** 
 
 Вы можете изменить эти настройки в файле или через переменные окружения.
 
