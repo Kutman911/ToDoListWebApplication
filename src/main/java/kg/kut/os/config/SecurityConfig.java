@@ -33,8 +33,8 @@ public class SecurityConfig {
         http
                 .csrf(org.springframework.security.config.annotation.web.configurers.CsrfConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/registration", "/error/**").permitAll()
-                        .requestMatchers("/public/**", "/static/**").permitAll()
+                        .requestMatchers("/", "/login", "/registration", "/error", "/public/**").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/account/**").hasAnyRole(UserRole.USER.name(), UserRole.ADMIN.name(), UserRole.SUPER_ADMIN.name())
                         .requestMatchers("/admin/**").hasAnyRole(UserRole.ADMIN.name(), UserRole.SUPER_ADMIN.name())
                         .requestMatchers("/super-admin/**").hasRole(UserRole.SUPER_ADMIN.name())

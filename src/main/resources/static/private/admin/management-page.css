@@ -1,160 +1,138 @@
 body {
     margin: 0;
-    background-color: #282E33;
-    font-family: sans-serif;
-}
-
-button {
-    display: flex;
-    align-items: center;
-    padding: 9px 14px 9px 14px;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 16px;
-    background-color: #3A87E0;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    outline: none;
-    transition: background-color .1s ease-in-out;
-}
-
-.button_type_close {
-    background-color: transparent;
-    padding: 5px 8px 6px 8px;
-    transition: background-color .1s ease-in-out;
-}
-
-.button_type_close:hover {
-    background-color: #efeff0;
-}
-
-button:hover {
-    cursor: pointer;
-    background-color: #3479c9;
+    background-color: #f4f7f6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
 }
 
 .page-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: calc(100vh - 48px);
+    gap: 32px;
+    padding-top: 100px;
+    min-height: calc(100vh - 100px);
+    flex-wrap: wrap;
 }
 
 .container {
+    width: 100%;
+    max-width: 450px;
     padding: 32px;
-    border-radius: 20px;
+    border-radius: 16px;
     background-color: #fff;
-}
-
-.container:nth-child(2) {
-    margin-left: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    height: fit-content;
 }
 
 .header-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 24px;
 }
 
 .header__text h2 {
     margin: 0;
-    font-size: 26px;
-    font-weight: 600;
-    line-height: 26px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #2c3e50;
 }
 
 .records-container {
-    border: 1px solid #dedede;
-    border-bottom: none;
-    border-radius: 6px;
-}
-
-.hint {
-    padding: 14px 14px 15px 14px;
-    border-bottom: 1px solid #dedede;
-    border-radius: 6px;
-    min-width: 339px;
+    border: 1px solid #edf2f7;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
 }
 
 .record {
     display: flex;
     justify-content: space-between;
-    padding: 6px 14px 6px 14px;
-    border-bottom: 1px solid #dedede;
-    min-width: 339px;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #edf2f7;
 }
 
-.record:nth-last-child(1) {
-    border-radius: 6px;
+.record:last-child {
+    border-bottom: none;
 }
 
 .record__title {
     display: flex;
-    align-items: center;
-    width: 200px;
+    flex-direction: column;
 }
 
-.record__title span {
-    font-size: 20px;
-    font-weight: 300;
-    margin-right: 6px;
+.record__title span:first-child {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.record__title span.role-badge {
+    font-size: 11px;
+    text-transform: uppercase;
+    background: #edf2f7;
+    padding: 2px 6px;
+    border-radius: 4px;
+    width: fit-content;
+    margin-top: 4px;
 }
 
 .record__controls {
     display: flex;
-    margin-left: 16px;
+    gap: 8px;
 }
 
-.record__controls-form {
-    margin-bottom: 0;
+.btn-delete {
+    background-color: #fff5f5;
+    color: #e53e3e;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-delete:hover {
+    background-color: #e53e3e;
+    color: #fff;
 }
 
 .form-container {
-    margin-top: 8px;
-}
-
-.form-container__form {
-    margin-bottom: 0;
-}
-
-.form-container__input-wrapper {
-    display: flex;
-    margin-bottom: 8px;
-}
-
-.form-container__button-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-top: 8px;
+    margin-top: 24px;
 }
 
 .form-container__select {
     width: 100%;
-    padding: 8px 10px 8px 10px;
-    border: 1px solid #dedede;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 300;
+    padding: 10px;
+    border: 2px solid #edf2f7;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 12px;
 }
 
-.form-container__select:focus {
-    outline: none;
-    border: 1px solid #a9bed6;
-    box-shadow: 0 0 2px 0 #2d81e2;
+.form-container__button {
+    width: 100%;
+    padding: 10px;
+    background-color: #3A87E0;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
 }
 
-.form-container__button  {
-    width: fit-content;
-    margin-left: 8px;
-    white-space: nowrap;
+.form-container__button:hover {
+    background-color: #2d70bd;
 }
 
 .form-container__button_disabled {
-    background-color: #c8d1d8;
+    background-color: #cbd5e0;
+    cursor: not-allowed;
 }
 
-.form-container__button_disabled:hover {
-    cursor: not-allowed;
-    background-color: #c8d1d8;
+.hint {
+    padding: 24px;
+    text-align: center;
+    color: #a0aec0;
 }

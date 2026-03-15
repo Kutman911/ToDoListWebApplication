@@ -44,13 +44,13 @@ public class PrivateAccountController {
                                  @RequestParam(name="filter", required = false) String filterMode) {
 
         recordService.updateRecordStatus(id, RecordStatus.DONE);
-        return "redirect:/account" + (filterMode != null ? "?filter=" + filterMode : "");
+        return "redirect:/account" + (filterMode != null && !filterMode.isBlank() ? "?filter=" + filterMode : "");
     }
 
     @PostMapping(value ="/delete-record")
     public String deleteRecord(@RequestParam Integer id,
                                @RequestParam(name="filter", required = false) String filterMode) {
         recordService.deleteRecord(id);
-        return "redirect:/account" + (filterMode != null ? "?filter=" + filterMode : "");
+        return "redirect:/account" + (filterMode != null && !filterMode.isBlank() ? "?filter=" + filterMode : "");
     }
 }

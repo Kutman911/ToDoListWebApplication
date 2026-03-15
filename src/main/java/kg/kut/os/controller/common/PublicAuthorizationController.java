@@ -48,7 +48,7 @@ public class PublicAuthorizationController {
                                     @RequestParam String password) {
         String encodedPassword = passwordEncoder.encode(password);
         userService.save(new User(name, email, encodedPassword, UserRole.USER));
-        forceAutoLogin(email, encodedPassword);
+        forceAutoLogin(email, password);
         return "redirect:/account";
     }
 

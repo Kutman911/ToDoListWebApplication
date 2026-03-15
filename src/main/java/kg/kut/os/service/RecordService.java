@@ -33,23 +33,21 @@ public class RecordService {
                 .sorted(Comparator.comparingInt(Record::getId))
                 .collect(Collectors.toList());
 
-        int numberOfActiveRecords = (int) records.stream().filter(record -> record.getStatus() == RecordStatus.ACTIVE).count();
-        int numberOfDoneRecords = (int) records.stream().filter(record -> record.getStatus() == RecordStatus.DONE).count();
-        if (filterMode == null || filterMode.isEmpty()) {
-            return new RecordsContainerDto(user.getName(), records,numberOfActiveRecords, numberOfDoneRecords);
+        long numberOfActiveRecords = records.stream().filter(record -> record.getStatus() == RecordStatus.ACTIVE).count();
+        long numberOfDoneRecords = records.stream().filter(record -> record.getStatus() == RecordStatus.DONE).count();
+
+        if (filterMode != null && !filterMode.isBlank()) {
+            try {
+                RecordStatus statusFilter = RecordStatus.valueOf(filterMode.toUpperCase());
+                records = records.stream()
+                        .filter(record -> record.getStatus() == statusFilter)
+                        .collect(Collectors.toList());
+            } catch (IllegalArgumentException ignored) {
+                // If filter is invalid (e.g., 'all'), show all records
+            }
         }
 
-        String filterModeInUpperCase = filterMode.toUpperCase();
-        List<String> allowedFilterModes = Arrays.stream(RecordStatus.values())
-                .map(Enum::name)
-                .collect(Collectors.toList());
-        if (allowedFilterModes.contains(filterModeInUpperCase)) {
-            List<Record> filteredRecords = records.stream()
-                    .filter(record -> record.getStatus() == RecordStatus.valueOf(filterModeInUpperCase))
-                    .collect(Collectors.toList());
-            return new RecordsContainerDto(user.getName(), filteredRecords, numberOfActiveRecords, numberOfDoneRecords);
-        }
-        return new RecordsContainerDto(user.getName(), records,numberOfActiveRecords, numberOfDoneRecords);
+        return new RecordsContainerDto(user.getName(), records, (int) numberOfActiveRecords, (int) numberOfDoneRecords);
     }
     public void saveRecord(String title) {
         if (title != null && !title.isEmpty()) {

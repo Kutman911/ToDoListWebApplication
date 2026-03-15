@@ -1,102 +1,77 @@
 # ToDo List Web Application
 
-A simple web-based ToDo List application built with Spring Boot, Spring Data JPA, Thymeleaf, and PostgreSQL.
+Современное веб-приложение для управления списком задач, построенное на Spring Boot, Spring Data JPA, Thymeleaf и PostgreSQL.
 
-## Overview
+## Обзор
 
-This application allows users to manage their daily tasks. Users can add new tasks, mark them as completed, and delete tasks. The application uses a PostgreSQL database to persist data.
+Это приложение позволяет пользователям эффективно управлять своими ежедневными задачами. Пользователи могут регистрироваться, добавлять новые задачи, фильтровать их по статусу (Все, Активные, Выполненные), отмечать выполнение и удалять задачи. Для администраторов предусмотрена панель управления пользователями.
 
-### Tech Stack
-- **Language:** Java 21
-- **Framework:** Spring Boot 4.0.2
-- **Data Access:** Spring Data JPA (Hibernate)
-- **Database:** PostgreSQL
-- **Template Engine:** Thymeleaf
-- **Build Tool:** Maven
+### Технологический стек
+- **Язык:** Java 21
+- **Фреймворк:** Spring Boot 3.x
+- **Безопасность:** Spring Security (аутентификация и авторизация)
+- **Доступ к данным:** Spring Data JPA (Hibernate)
+- **База данных:** PostgreSQL
+- **Шаблонизатор:** Thymeleaf
+- **Стили:** CSS3 (современный адаптивный дизайн)
+- **Сборка:** Maven
 
-## Requirements
+## Основной функционал
 
-- **Java Development Kit (JDK):** Version 21 or higher.
-- **PostgreSQL:** A running instance of PostgreSQL database.
-- **Maven:** (Optional) You can use the included Maven wrapper (`mvnw`).
+*   **Система пользователей**: Полноценная регистрация, аутентификация и авторизация.
+*   **Ролевая модель**: Гибкая система прав (`USER`, `ADMIN`, `SUPER_ADMIN`).
+*   **Управление задачами**: Создание, редактирование, удаление и фильтрация задач по статусу (Все, Активные, Выполненные).
+*   **Безопасность**: Защита маршрутов с помощью Spring Security 6, безопасное хранение паролей и управление сессиями.
+*   **Современный UI**: Адаптивные страницы на Thymeleaf с кастомными CSS-стилями для каждого раздела (авторизация, аккаунт, ошибки).
+*   **Глобальная обработка ошибок**: Кастомные страницы для 404, 403 и общих ошибок.
 
-## Setup and Run
+## Структура проекта
 
-### 1. Database Configuration
+*   `kg.kut.os.config`: Конфигурации Security и WebMvc.
+*   `kg.kut.os.controller`: Контроллеры для публичного доступа, защищенного профиля и админ-панели.
+*   `kg.kut.os.entity`: Модели данных JPA (User, Record) и DTO для передачи данных.
+*   `kg.kut.os.repository`: Интерфейсы Spring Data JPA для работы с PostgreSQL.
+*   `kg.kut.os.service`: Сервисный слой с основной бизнес-логикой.
+*   `src/main/resources/templates`: HTML-шаблоны Thymeleaf, разделенные по уровням доступа.
+*   `src/main/resources/static`: Стили (CSS) и фрагменты интерфейса.
 
-Before running the application, ensure you have a PostgreSQL database created. By default, the application expects the following configuration (found in `src/main/resources/application.properties`):
+## Требования
+
+- **JDK:** Версия 21 или выше.
+- **PostgreSQL:** Установленный и запущенный сервер PostgreSQL.
+- **Maven:** (Опционально) Можно использовать встроенный Maven wrapper (`mvnw.cmd`).
+
+## Настройка и запуск
+
+### 1. Конфигурация базы данных
+
+Перед запуском убедитесь, что у вас создана база данных в PostgreSQL. Настройки по умолчанию находятся в `src/main/resources/application.properties`:
 
 - **URL:** `jdbc:postgresql://localhost:5433/kutos`
 - **Username:** `kutos`
 - **Password:** `sk88690733`
 
-You can override these settings using environment variables or by modifying the `application.properties` file.
+Вы можете изменить эти настройки в файле или через переменные окружения.
 
-### 2. Build the Project
+### 2. Сборка проекта
 
-Use the Maven wrapper to build the project:
-
-```powershell
-./mvnw clean package
-```
-
-### 3. Run the Application
-
-You can run the application using the following command:
+Используйте Maven wrapper для сборки (Windows):
 
 ```powershell
-./mvnw spring-boot:run
+./mvnw.cmd clean package
 ```
 
-The application will be available at `http://localhost:8080` by default.
+### 3. Запуск приложения
 
-## Scripts
+Запустите приложение командой:
 
-- `mvnw` / `mvnw.cmd`: Maven wrapper scripts for building and running the project without a local Maven installation.
-- `clean package`: Compiles the code and packages it into a JAR file.
-- `spring-boot:run`: Starts the Spring Boot application.
-
-## Environment Variables
-
-The following environment variables can be used to configure the database connection (optional, defaults are in `application.properties`):
-
-| Variable | Description | Default Value |
-|----------|-------------|---------------|
-| `SPRING_DATASOURCE_URL` | JDBC URL for PostgreSQL | `jdbc:postgresql://localhost:5433/kutos` |
-| `SPRING_DATASOURCE_USERNAME` | Database username | `kutos` |
-| `SPRING_DATASOURCE_PASSWORD` | Database password | `sk88690733` |
-
-## Tests
-
-Currently, there are no automated tests implemented in this project.
-- TODO: Add unit tests for `RecordService`.
-- TODO: Add integration tests for `CommonController`.
-
-## Project Structure
-
-```text
-ToDoListWebApplication/
-├── mvnw                 # Maven wrapper (Unix)
-├── mvnw.cmd             # Maven wrapper (Windows)
-├── pom.xml              # Maven project configuration
-├── src/
-│   ├── main/
-│   │   ├── java/        # Java source code
-│   │   │   └── kg/kut/os/
-│   │   │       ├── ToDoListApplication.java   # Entry point
-│   │   │       ├── controller/                # Web controllers
-│   │   │       ├── dao/                       # Data access objects
-│   │   │       ├── entity/                    # Domain entities
-│   │   │       └── service/                   # Business logic
-│   │   └── resources/
-│   │       ├── application.properties         # Application configuration
-│   │       ├── static/                        # Static assets (CSS, JS)
-│   │       └── templates/                     # HTML templates (Thymeleaf)
-│   └── test/            # (Future) Test source code
-└── HELP.md              # Spring Boot generated help file
+```powershell
+./mvnw.cmd spring-boot:run
 ```
 
-## License
+Приложение будет доступно по адресу: `http://localhost:8080`
 
-This project does not have an explicit license file.
-- TODO: Add a LICENSE file (e.g., MIT, Apache 2.0).
+## Роли пользователей
+1. **USER** — может управлять своим списком задач.
+2. **ADMIN** — имеет доступ к списку пользователей и может удалять обычных пользователей.
+3. **SUPER_ADMIN** — имеет полный доступ, может управлять администраторами.

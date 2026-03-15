@@ -55,21 +55,12 @@ public class PrivateAdminController {
 
         User userToBeDeleted = userToBeDeletedOptional.get();
 
+        if (userToBeDeleted.isSuperAdmin() || currentUser.getId() == id) {
+            return "redirect:/admin?error=OperationNotAllowed";
+        }
 
         if (!currentUser.isSuperAdmin() && userToBeDeleted.isAdmin()) {
-            return "redirect:/admin";
-        }
-
-        if (userToBeDeleted.isSuperAdmin()) {
-            return "redirect:/admin";
-        }
-
-        if (currentUser.isAdmin() && userToBeDeleted.isSuperAdmin()) {
-            return "redirect:/admin";
-        }
-
-        if (currentUser.getId() == id) {
-            return "redirect:/admin?error=CannotDeleteSelf";
+            return "redirect:/admin?error=InsufficientPrivileges";
         }
 
         userService.deleteById(id);

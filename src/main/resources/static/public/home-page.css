@@ -1,40 +1,40 @@
 body {
     margin: 0;
-    background-color: #282E33;
-    font-family: sans-serif;
-}
-
-h2, h4 {
-    margin: 0;
+    background: linear-gradient(135deg, #282E33 0%, #1a1e21 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
 }
 
 h2 {
-    font-size: 24px;
-    font-weight: 600;
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c3e50;
 }
 
-h4 {
+p {
+    margin: 0;
     font-size: 16px;
-    font-weight: 300;
+    color: #7f8c8d;
+    line-height: 1.6;
 }
 
-a {
+a.btn-primary {
     text-decoration: none;
-    padding: 9px 14px 9px 14px;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 16px;
+    padding: 12px 28px;
+    font-size: 16px;
+    font-weight: 600;
     background-color: #3A87E0;
     color: #fff;
-    border: none;
     border-radius: 8px;
-    outline: none;
-    transition: background-color .1s ease-in-out;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(58, 135, 224, 0.2);
 }
 
-a:hover {
-    cursor: pointer;
+a.btn-primary:hover {
     background-color: #3479c9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(58, 135, 224, 0.3);
 }
 
 .page-wrapper {
@@ -45,13 +45,21 @@ a:hover {
 }
 
 .container {
-    padding: 32px;
-    border-radius: 20px;
+    padding: 48px;
+    border-radius: 24px;
     background-color: #fff;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.header-logo {
+    margin-bottom: 24px;
 }
 
 .description {
-    margin: 16px 0;
+    margin: 20px 0 32px;
 }
 
 .title, .description, .navigation {

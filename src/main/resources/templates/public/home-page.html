@@ -2,23 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ToDo List</title>
-    <link th:href="@{/static/public/home-page.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List | Welcome</title>
+    <link th:href="@{/public/home-page.css}" rel="stylesheet">
 </head>
 <body>
 <div class="page-wrapper">
     <div class="container">
+        <div class="header-logo">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 11L12 14L22 4" stroke="#3A87E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16" stroke="#3A87E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
         <div class="title">
-            <h2>Welcome to the best «ToDo Planner»!</h2>
+            <h2>Welcome to ToDo Planner</h2>
         </div>
         <div class="description">
-            <h4>Here you can add new tasks, mark them «done» or remove at all</h4>
+            <p>Manage your tasks efficiently. Stay organized and productive.</p>
         </div>
         <div class="navigation">
-            <a href="/account">Let's try</a>
+            <a href="/account" class="btn-primary">Get Started</a>
         </div>
     </div>
 </div>
